@@ -1,15 +1,15 @@
-import React from 'react';
-
-import { sample } from '../../utils';
-import { WORDS } from '../../data';
-
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
+import Results from '../Results/Results';
+import GuessInput from '../GuessInput/GuessInput';
+import EndGame from '../EndGame/EndGame';
 
 function Game() {
-  return <>Put a game here!</>;
+    return (
+        <div className='game-wrapper'>
+            <Results />
+            <GuessInput />
+            <EndGame />
+        </div>
+    );
 }
 
 export default Game;
