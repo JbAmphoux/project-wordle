@@ -38,9 +38,8 @@ function GuessInput() {
                 ref={guessInputRef}
                 type='text'
                 name='guess-input'
-                minLength={5}
-                maxLength={5}
                 pattern='[A-Za-z]{5}'
+                title='Please enter 5 letters word'
                 value={guessValue}
                 onChange={(e) => {
                     setGuessValue(e.target.value.toUpperCase());
