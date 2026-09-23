@@ -38,6 +38,8 @@ function GuessInput() {
                 ref={guessInputRef}
                 type='text'
                 name='guess-input'
+                minLength={5}
+                maxLength={5}
                 pattern='[A-Za-z]{5}'
                 value={guessValue}
                 onChange={(e) => {
