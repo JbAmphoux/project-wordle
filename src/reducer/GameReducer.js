@@ -18,16 +18,8 @@ export function gameReducer(state, action) {
         });
     };
 
-    const handleGameOver = (state, isWordleFound) => {
-        return {
-            ...state,
-            isGameOver: true,
-            isWordleFound: isWordleFound,
-        };
-    };
-
     const handleAddGuess = (guess) => {
-        const newState = {
+        let newState = {
             ...state,
             guesses: addGuess(
                 guess,
@@ -38,7 +30,13 @@ export function gameReducer(state, action) {
         };
 
         if (newState.isWordleFound || newState.guesses.filter((x) => x.isEmpty).length === 0) {
-            return handleGameOver(newState, newState.isWordleFound);
+            const newStats = [...state.gameStats, { gameId: state.gameId, numberOfGuesses: newState.guesses.filter((g) => !g.isEmpty).length, win: newState.isWordleFound }];
+            window.localStorage.setItem('game_stats', JSON.stringify(newStats));
+            newState = {
+                ...newState,
+                isGameOver: true,
+                gameStats: newStats,
+            };
         }
         return newState;
     };
@@ -56,15 +54,6 @@ export function gameReducer(state, action) {
         }
         case 'ADD_GUESS': {
             return handleAddGuess(action.payload.guess);
-        }
-        case 'GAME_OVER': {
-            return handleGameOver(state, action.payload.isWordleFound);
-        }
-        case 'ADD_GAME_STAT': {
-            return {
-                ...state,
-                gameStats: [...state.gameStats, action.payload.gameStat],
-            };
         }
         default: {
             return state;

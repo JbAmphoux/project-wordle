@@ -20,10 +20,8 @@ function GuessInput() {
     const guessInputRef = useRef();
 
     useEffect(() => {
-        if (game.isGameOver === true) {
-            if (guessInputRef.current) {
-                guessInputRef.current.disabled = true;
-            }
+        if (guessInputRef.current) {
+            guessInputRef.current.disabled = game.isGameOver;
         }
     }, [game.isGameOver]);
 

@@ -17,16 +17,11 @@ export function GameContextProvider(props) {
         guesses: new Array(NUM_OF_GUESSES_ALLOWED).fill(null).map(() => emptyGuess()),
         answer: sample(WORDS),
         gameId: crypto.randomUUID(),
-        gameStats: [],
+        gameStats: JSON.parse(window.localStorage.getItem('game_stats')) ?? [],
     });
 
     const initGame = () => {
         dispatch({ type: 'NEW_GAME', payload: { answer: sample(WORDS), gameId: crypto.randomUUID() } });
-    };
-
-    const gameover = (guesses, wordleFound) => {
-        dispatch({ type: 'GAME_OVER', payload: { isWordleFound: wordleFound } });
-        dispatch({ type: 'ADD_GAME_STAT', payload: { gameStat: { gameId: state.gameId, numberOfGuesses: guesses.filter((g) => !g.isEmpty), win: wordleFound } } });
     };
 
     const addGuess = (guess) => {
@@ -42,7 +37,6 @@ export function GameContextProvider(props) {
             value={{
                 game: state,
                 initGame,
-                gameover,
                 addGuess,
             }}
         >

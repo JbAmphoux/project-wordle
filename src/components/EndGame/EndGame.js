@@ -1,4 +1,5 @@
 import { useGame } from '../../context/GameContext';
+import GameStats from '../GameStats/GameStats';
 
 /**
  * Display an endgame banner wether the user win or lose
@@ -13,7 +14,7 @@ function EndGame() {
                 game.isWordleFound ? (
                     <p>
                         <strong>Congratulations!</strong> Got it in&nbsp;
-                        <strong>{game.guesses.length} guesses</strong>.
+                        <strong>{game.guesses.filter((g) => !g.isEmpty).length} guesses</strong>.
                     </p>
                 ) : (
                     <p>
@@ -21,6 +22,9 @@ function EndGame() {
                     </p>
                 ))
             }
+            <GameStats />
+            <br />
+            <br />
             <button
                 onClick={() => {
                     initGame();
